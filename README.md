@@ -1,8 +1,11 @@
-# neural_style_transfer [![Build Status](https://github.com/anishathalye/neural-style/workflows/CI/badge.svg)](https://github.com/anishathalye/neural-style/actions?query=workflow%3ACI)
+# neural_style_transfer 
 Author: Artan Zandian  
-Date: January 2022
+Date: February 2022
 
 ## About
+This project is an augmentation of my [Neural style Transfer project](https://github.com/artanzand/neural_style_transfer) by applying semantic segmentation on the content image to filter out the images of people from the stylized image. Please refer to Neural Style Transfer [post](https://artanzand.github.io//neural-style-transfer/) for more information on implementation of that project.   
+<br>
+
 This project is a Tensorflow implementation of unsupervised deep learning algorithm originally introduced by [Gatys et al. (2015)](https://arxiv.org/abs/1508.06576). For review of the framework and to understand how each individual piece works please refer to [my project post](https://artanzand.github.io//neural-style-transfer/).
 <p align="center">
   <img src="https://github.com/artanzand/neural_style_transfer/blob/main/examples/balloon_style.gif" />
@@ -23,19 +26,15 @@ Run `python stylize.py --help` to see a list of all options and input type detai
 Two optional arguments of --similarity (default "balanced") and --epochs (default 500) control the similarity to either of input photos and number of iternations respectively. 
 For a 512×680 pixel content file, 1000 iterations take 75 seconds on an Nvidia Jetson Nano 2GB, or 75 minutes on an Intel Core i5-8250U. Due to the speedup using a GPU is highly recommended.
 
-### Using NVIDIA Docker  
-Do you have access to an NVIDIA Jetson device? I have created an NVIDIA docker image which can be pulled to your device (I have tested it on Jetson Nano) using the commands below. If you are interensted in learning how to build a custom NVIDIA image using Podman, check out my blog [here](https://artanzand.github.io//Tensorflow-Docker/).
-  
-docker run artanzandian/keras:0.1.0 --rm -it 
+### Downloading and Training the Model
+To use the Kaggle API, sign up for a Kaggle account at https://www.kaggle.com. Then go to the 'Account' tab of your user profile (https://www.kaggle.com/<username>/account) and select 'Create API Token'. This will trigger the download of kaggle.json, a file containing your API credentials. Place this file in the location `~/.kaggle/kaggle.json`. I have already included the `kaggle` package in the repo environment, and running the below script should download the required files. 
 
-1. clone the repository  
-2. change directory to the root of the project  
-```sudo docker run --rm -it -v /$(pwd):/home/ artanzandian/keras:0.1.0```  
-3. Interactive usage:  
+Run the following commands at the command line/terminal from the root directory of the project to download the data files in a `/data` folder:
 ```
-cd home
-python stylize.py --content=examples/balloon.JPG --style=examples/city-rain.jpg --save=examples/stylized --similarity=style --epochs=2000
+python src/download_data.py --dataset=nikhilroxtomar/person-segmentation --file_path=data/
 ```
+
+You can now run the notebook file in the `/src` directory to train and save the U_Net model.
 
 
 
