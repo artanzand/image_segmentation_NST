@@ -8,3 +8,4 @@ dependencies:
   - keras=2.6
   - docopt=0.6.1
   - pillow=8.4.0
+  - kaggle
