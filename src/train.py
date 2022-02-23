@@ -1,3 +1,6 @@
+# author: Artan Zandian
+# date: 2022-02-18
+
 import os
 import numpy as np
 import tensorflow as tf
