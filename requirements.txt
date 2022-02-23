@@ -1,9 +1,0 @@
-tensorflow
-keras
-numpy
-pillow
-docopt
-kaggle
-pandas
-numpy
-imageio
