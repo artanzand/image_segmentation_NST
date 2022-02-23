@@ -1,3 +1,6 @@
+# author: Artan Zandian
+# date: 2022-02-18
+
 import tensorflow as tf
 from tensorflow.keras.layers import (
     Input,
