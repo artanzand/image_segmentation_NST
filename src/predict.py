@@ -10,10 +10,10 @@ Options:
 """
 import os
 import tensorflow as tf
-from docopt import docopt
+# from docopt import docopt
 
 
-opt = docopt(__doc__)
+# opt = docopt(__doc__)
 
 # Global parameter
 IMAGE_SIZE = (320, 320)
@@ -111,8 +111,8 @@ def predict(image_path, save=True):
         segmented_photo.save(no_format + "_mask.jpeg")
         print("Image saved.")
 
-    return segmented_photo
+    return masked_photo
 
 
-if __name__ == "__main__":
-    predict(opt["--file_path"])
+# if __name__ == "__main__":
+#     predict(opt["--file_path"])
