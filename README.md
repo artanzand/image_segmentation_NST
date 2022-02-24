@@ -44,6 +44,10 @@ rm -r ../df
 
 ## Examples
 
+```
+python predict.py --file_path=../examples/pexels-photo-1239291.jpeg
+```
+
 Running for 1000-2500 epochs usually produce nice results. If the light and exposure of the content and style images are similar, smaller number of epochs would work better while the model seems to be overfitting if the number of epochs is increases to 10,000. Overfitting in case of this model could be described as too much abstraction where the overall shape of the content photo is lost. The following example was run for 2500 iterations to produce the result (with default parameters). The style input image was Bob Ross's famous Summer painting, and the content image was my own image from Moraine Lake, Alberta.
 <p align="center">
   <img src="https://github.com/artanzand/neural_style_transfer/blob/main/examples/moraine_style.JPG" />
