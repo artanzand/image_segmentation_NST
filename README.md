@@ -39,7 +39,7 @@ You should now move to `/src` directory to download the data, train and save the
 ```
 python download_data.py --dataset=nikhilroxtomar/person-segmentation --file_path=../data/
 python train.py
-rm -r ../df
+rm -r ../data
 ```
 
 ## Examples
