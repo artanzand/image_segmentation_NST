@@ -5,7 +5,9 @@
 Reads two source images, one as the initial content image and second as the target style image,
 and applies Neural Style Transfer on the content image to create a stylized rendering of the content
 image based on the texture and style of the style image.
+
 Usage: python stylize.py --content <content image> --style <style image> --save <save directory> --similarity <direction> --epochs <num_iter>
+
 Options:
 --content=<image_path>               file path of the content image - initial  
 --style=<csv_path>                   file path of the style image - target
@@ -18,7 +20,7 @@ Options:
 from PIL import Image
 import numpy as np
 import tensorflow as tf
-from tensorflow import keras
+from predict import predict
 
 from docopt import docopt
 
@@ -126,10 +128,28 @@ def main(content, style, save, similarity="balanced", epochs=500):
             if i % 500 == 0:
                 print(f"Epoch {i} >>>")
 
-        # Resize to original size and save
-        image = tensor_to_image(generated_image)
-        image = image.resize((content_width, content_height))
-        image.save(save + ".jpg")
+        # Create crop out of personage in the content image
+        # Image segmentation is done using U-Net architecture (size of (320, 320))
+        masked_photo = predict(content)
+        # resize to current stylized image
+        masked_photo = tf.image.resize(
+            masked_photo, [image_size, image_size], method="nearest"
+        )
+
+        # Create background mask
+        background_mask = tf.cast(masked_photo == 0, tf.float32)
+        masked_background = (
+            generated_image * background_mask
+        )  # photo mask is 0's and 1's
+
+        # Combine the two images (the two pieces complement eachother)
+        segmented_style = masked_background + masked_photo
+
+        # Resize stylized image to original size and save
+        seg_style_image = tensor_to_image(segmented_style)
+        seg_style_image = seg_style_image.resize((content_width, content_height))
+
+        seg_style_image.save(save + ".jpg")
         print("Image saved.")
 
     except Exception as message:
