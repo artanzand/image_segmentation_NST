@@ -1,4 +1,4 @@
-# neural_style_transfer
+# Image Segmentation with U-Net
 
 Author: Artan Zandian  
 Date: February 2022
