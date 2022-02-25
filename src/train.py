@@ -108,7 +108,7 @@ if __name__ == "__main__":
     # Compile and set batch
     unet.compile(
         optimizer="adam",
-        loss=tf.keras.losses.BinaryCrossentropy(from_logits=False),
+        loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
         metrics=["accuracy"],
     )
 
