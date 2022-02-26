@@ -8,7 +8,7 @@ Date: February 2022
 This project is a second phase of my [Neural style Transfer project](https://github.com/artanzand/neural_style_transfer) where I apply semantic image segmentation on the content image to filter out the images of people from the stylized image. Please refer to Neural Style Transfer [post](https://artanzand.github.io//neural-style-transfer/) for more information on implementation of that project.
 <br>
 
-This project includes a Tensorflow implementation of the U-Net Architecture used for image segmentation which was originally introduced by Ronneberger et al. in a [paper](https://arxiv.org/abs/1505.04597) in 2015. For review of the framework and to understand how each individual piece works please refer to [my project post](https://artanzand.github.io//sematic-segmentation/). I have also included a [notebook file](https://github.com/artanzand/image_segmentation_NST/blob/main/src/U-Net_model.ipynb) which will walk you through the image loading, data wrangling, building of U-Net architecture and training the model.
+This project includes a Tensorflow implementation of the U-Net Architecture used for image segmentation which was originally introduced by Ronneberger et al. in a [paper](https://arxiv.org/abs/1505.04597) in 2015. For review of the framework and to understand how each individual piece works please refer to [my project post](https://artanzand.github.io//sematic-segmentation/). I have also included a [notebook file](https://github.com/artanzand/image_segmentation_NST/blob/main/src/U-Net_model.ipynb) which will walk you through the image loading, data wrangling, building of U-Net architecture and training of the model.
 <p align="center">
   <img src="https://github.com/artanzand/image_segmentation_NST/blob/main/examples/evolution.gif" />
 </p>
@@ -39,7 +39,7 @@ For a 512×680 pixel content file, 1000 iterations take 75 seconds on an Nvidia 
 
 To use the Kaggle API, sign up for a Kaggle account at <https://www.kaggle.com>. Then go to the 'Account' tab of your user profile (<https://www.kaggle.com/><username>/account) and select 'Create API Token'. This will trigger the download of kaggle.json, a file containing your API credentials. Place this file in the location `~/.kaggle/kaggle.json`. I have already included the `kaggle` package in the repo environment, and running the below script should download the required files.
 
-You should now move to `/src` directory to download the data, train and save the U_Net model. You will need 1GB memory for the data, and 100 MB of memory to store the model. It is optional to keep the data once the training is done. Run the following commands at the command line/terminal from the `/src` directory of the project to download the data files and augment them in a `/data` folder, and finally train the model. This will give you a `Unet_model.h5` in the `model/` directory. The training should take about 45 minutes on an NVIDIA Tesla P100 on the cloud.
+You should now move to `/src` directory to download the data, train and save the U_Net model. You will need 1GB of memory for the data, and 100 MB of memory to store the model. It is optional to keep the data once the training is done. Run the following commands at the command line/terminal from the `/src` directory of the project to download the data files and augment them in a `/data` folder, and finally train the model. This will give you a `Unet_model.h5` in the `model/` directory. The training should take about 45 minutes on an NVIDIA Tesla P100 on the cloud.
 
 ```
 python download_data.py --dataset=nikhilroxtomar/person-segmentation --file_path=../data/
@@ -53,7 +53,7 @@ An alternative to using the script above to download and train the model would b
 
 ## Examples of Image Segmentation
 
-The `predict()` function can be used separately for image segmentation.
+The `predict()` function can be used on its own for image segmentation.
 
 ```
 python src/predict.py --file_path=../examples/alberta_walking.jpg
@@ -63,7 +63,7 @@ python src/predict.py --file_path=../examples/alberta_walking.jpg
   <img src="https://github.com/artanzand/image_segmentation_NST/blob/main/examples/predict_output.JPG" />
 </p>
 
-Below we see a comparison of the real training mask versus the one created by the model.
+Below we see a comparison of the real training mask versus the one predicted by the model.
 <p align="center">
   <img src="https://github.com/artanzand/image_segmentation_NST/blob/main/examples/true_v_predicted.JPG" />
 </p>
