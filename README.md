@@ -8,14 +8,15 @@ Date: February 2022
 This project is a second phase of my [Neural style Transfer project](https://github.com/artanzand/neural_style_transfer) where I apply semantic image segmentation on the content image to filter out the images of people from the stylized image. Please refer to Neural Style Transfer [post](https://artanzand.github.io//neural-style-transfer/) for more information on implementation of that project.
 <br>
 
-This project includes a Tensorflow implementation of the U-Net Architecture used for image segmentation which was originally introduced by Ronneberger et al. in a [paper](https://arxiv.org/abs/1505.04597) in 2015. For review of the framework and to understand how each individual piece works please refer to [my project post](https://artanzand.github.io//sematic-segmentation/).
+This project includes a Tensorflow implementation of the U-Net Architecture used for image segmentation which was originally introduced by Ronneberger et al. in a [paper](https://arxiv.org/abs/1505.04597) in 2015. For review of the framework and to understand how each individual piece works please refer to [my project post](https://artanzand.github.io//sematic-segmentation/). I have also included a [notebook file](https://github.com/artanzand/image_segmentation_NST/blob/main/src/U-Net_model.ipynb) which will walk you through the image loading, data wrangling, building of U-Net architecture and training the model.
 <p align="center">
-  <img src="https://github.com/artanzand/neural_style_transfer/blob/main/examples/evolution.gif" />
+  <img src="https://github.com/artanzand/image_segmentation_NST/blob/main/examples/evolution.gif" />
 </p>
 
 ## Dataset
 
 Person Segmentation [dataset](https://www.kaggle.com/nikhilroxtomar/person-segmentation)
+<br>
 
 ## Usage
 
@@ -48,42 +49,23 @@ rm -r ../data
 
 ### Weights File
 
-An alternative to downloading and training the model would be to download the trained model and weights from [here](https://drive.google.com/drive/u/0/my-drive). Make sure the model is saved in a `/model` folder under the root directory.
+An alternative to using the script above to download and train the model would be to download the trained model and weights from [here](https://drive.google.com/drive/u/0/my-drive). Make sure the model is saved in a `/model` folder under the root directory.
 
-## Examples
+## Examples of Image Segmentation
+
+The `predict()` function can be used separately for image segmentation.
 
 ```
-python predict.py --file_path=../examples/pexels-photo-1239291.jpeg
+python src/predict.py --file_path=../examples/alberta_walking.jpg
 ```
 
-Running for 1000-2500 epochs usually produce nice results. If the light and exposure of the content and style images are similar, smaller number of epochs would work better while the model seems to be overfitting if the number of epochs is increases to 10,000. Overfitting in case of this model could be described as too much abstraction where the overall shape of the content photo is lost. The following example was run for 2500 iterations to produce the result (with default parameters). The style input image was Bob Ross's famous Summer painting, and the content image was my own image from Moraine Lake, Alberta.
 <p align="center">
-  <img src="https://github.com/artanzand/neural_style_transfer/blob/main/examples/moraine_style.JPG" />
+  <img src="https://github.com/artanzand/image_segmentation_NST/blob/main/examples/predict_output.JPG" />
 </p>
-<br>
 
-In the next example due to having a different light exposure (day vs night) the number of epochs were increased to 20,000 to generate decent looking results. The style input image was Rainy Night in the City by Leonid Afremov, and the content image was my own image from a balloon ride in Calgary, Alberta.
+Below we see a comparison of the real training mask versus the one created by the model.
 <p align="center">
-  <img src="https://github.com/artanzand/neural_style_transfer/blob/main/examples/all-three.JPG" />
-</p>
-<br>
-
-## Parameters
-
-### Epochs
-
-As briefly alluded to in the Examples section, number of epochs controls the number of iterations and the proper size of epochs is highly dependent on the two input images.
-<p align="center">
-  <img src="https://github.com/artanzand/neural_style_transfer/blob/main/examples/epochs.JPG" />
-</p>
-<br>
-
-### Similarity
-
-There are five layers within the base VGG19 architecture used for this project. The weight of these layers determine how similar the output image will be to either of the two input images. For implementaiton details see [my post](https://artanzand.github.io//neural-style-transfer/). Instead of giving the user full selection freedom over the layer weights which are very confusing and hard to control, I have created three optimized options of layer weights which can be changed based on user preference to have an image that has similar details to the "content" image, "style" image or is "balanced" between the two. Below shows 20,000 iterations for each of the similarity options.
-
-<p align="center">
-  <img src="https://github.com/artanzand/neural_style_transfer/blob/main/examples/similarity.JPG" />
+  <img src="https://github.com/artanzand/image_segmentation_NST/blob/main/examples/true_v_predicted.JPG" />
 </p>
 <br>
 
@@ -91,7 +73,9 @@ There are five layers within the base VGG19 architecture used for this project. 
 
 ### Neural Network Model and Weights
 
-The main function in `stylize.py` loads [VGG19 Architecture](https://www.tensorflow.org/api_docs/python/tf/keras/applications/vgg19/VGG19) from Keras with ImageNet weights.
+The trained U-Net model and weights need to be downloaded from [here](https://drive.google.com/drive/u/0/my-drive) and saved in a `/model` folder under the root directory. Alternatively, the scripts in the Usage section can be used to download and train the model.
+
+The main function in `stylize.py` loads [VGG19 Architecture](https://www.tensorflow.org/api_docs/python/tf/keras/applications/vgg19/VGG19) from Keras with ImageNet weights.  
 
 ### Dependencies  
 
@@ -102,6 +86,8 @@ A complete list of dependencies is available
 <br>- keras=2.6
 <br>- docopt=0.6.1
 <br>- pillow=8.4.0
+<br>- numpy=1.22.0
+<br>- imageio=2.6.1
 
 ## License
 
@@ -109,9 +95,9 @@ This project is licensed under the terms of the MIT license.
 
 ## Credits and References
 
-Gatys, Leon A., Ecker, Alexander S. and Bethge, Matthias. "A Neural Algorithm of Artistic Style.." CoRR abs/1508.06576 (2015): [link to paper](https://arxiv.org/abs/1508.06576)  
-Image Segmentation with DeepLabV3Plus: [link to repo](https://github.com/nikhilroxtomar/Human-Image-Segmentation-with-DeepLabV3Plus-in-TensorFlow)  
+[1] Gatys, Leon A., Ecker, Alexander S. and Bethge, Matthias. "A Neural Algorithm of Artistic Style.." CoRR abs/1508.06576 (2015): [link to paper](https://arxiv.org/abs/1508.06576)  
+[2] Image Segmentation with DeepLabV3Plus: [link to repo](https://github.com/nikhilroxtomar/Human-Image-Segmentation-with-DeepLabV3Plus-in-TensorFlow)  
 
-[DeepLearning.ai](https://www.deeplearning.ai/) Deep Learning Specialization lecture notes  
+[3] [DeepLearning.ai](https://www.deeplearning.ai/) Deep Learning Specialization lecture notes  
 
-Ronneberger, Olaf, Philipp Fischer, and Thomas Brox. "U-net: Convolutional networks for biomedical image segmentation." International Conference on Medical image computing and computer-assisted intervention. Springer, Cham, 2015.: [link to paper](https://arxiv.org/abs/1505.04597)
+[4] Ronneberger, Olaf, Philipp Fischer, and Thomas Brox. "U-net: Convolutional networks for biomedical image segmentation." International Conference on Medical image computing and computer-assisted intervention. Springer, Cham, 2015.: [link to paper](https://arxiv.org/abs/1505.04597)
