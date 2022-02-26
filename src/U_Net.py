@@ -129,7 +129,7 @@ def U_Net(input_size=(320, 320, 3), n_filters=32, n_classes=1):
     inputs = Input(input_size)
 
     # Encoder section
-    #################
+    # ================
     # Double the number of filters at each new step
     # The first element of encoder_block is input to the next layer
     eblock1 = encoder_block(inputs, n_filters)
@@ -139,7 +139,7 @@ def U_Net(input_size=(320, 320, 3), n_filters=32, n_classes=1):
     eblock5 = encoder_block(eblock4[0], n_filters * 16, dropout=0.3, max_pooling=False)
 
     # Decoder section
-    #################
+    # ================
     # Chain the output of the previous block as expansive_input and the corresponding contractive block output
     # The second element of encoder_block is input to the skip connection
     # Halving the number of filters of the previous block in each section
@@ -164,7 +164,6 @@ def U_Net(input_size=(320, 320, 3), n_filters=32, n_classes=1):
 
     # Add a 1x1 Conv2D (projection) layer with n_classes filters to adjust number of output channels
     conv10 = Conv2D(filters=n_classes, kernel_size=1, padding="same")(conv9)
-    pred = tf.keras.activations.sigmoid(conv10)
 
     model = tf.keras.Model(inputs=inputs, outputs=conv10)
 

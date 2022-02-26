@@ -1,17 +1,21 @@
-# Image Segmentation with U-Net
+# Semantic Image Segmentation with U-Net
 
 Author: Artan Zandian  
 Date: February 2022
 
 ## About
 
-This project is an augmentation of my [Neural style Transfer project](https://github.com/artanzand/neural_style_transfer) by applying semantic segmentation on the content image to filter out the images of people from the stylized image. Please refer to Neural Style Transfer [post](https://artanzand.github.io//neural-style-transfer/) for more information on implementation of that project.
+This project is a second phase of my [Neural style Transfer project](https://github.com/artanzand/neural_style_transfer) where I apply semantic image segmentation on the content image to filter out the images of people from the stylized image. Please refer to Neural Style Transfer [post](https://artanzand.github.io//neural-style-transfer/) for more information on implementation of that project.
 <br>
 
-This project is a Tensorflow implementation of unsupervised deep learning algorithm originally introduced by [Gatys et al. (2015)](https://arxiv.org/abs/1508.06576). For review of the framework and to understand how each individual piece works please refer to [my project post](https://artanzand.github.io//neural-style-transfer/).
+This project includes a Tensorflow implementation of the U-Net Architecture used for image segmentation which was originally introduced by Ronneberger et al. in a [paper](https://arxiv.org/abs/1505.04597) in 2015. For review of the framework and to understand how each individual piece works please refer to [my project post](https://artanzand.github.io//sematic-segmentation/).
 <p align="center">
-  <img src="https://github.com/artanzand/neural_style_transfer/blob/main/examples/balloon_style.gif" />
+  <img src="https://github.com/artanzand/neural_style_transfer/blob/main/examples/evolution.gif" />
 </p>
+
+## Dataset
+
+Person Segmentation [dataset](https://www.kaggle.com/nikhilroxtomar/person-segmentation)
 
 ## Usage
 
@@ -41,6 +45,10 @@ python download_data.py --dataset=nikhilroxtomar/person-segmentation --file_path
 python train.py
 rm -r ../data
 ```
+
+### Weights File
+
+An alternative to downloading and training the model would be to download the trained model and weights from [here](https://drive.google.com/drive/u/0/my-drive). Make sure the model is saved in a `/model` folder under the root directory.
 
 ## Examples
 
@@ -101,7 +109,9 @@ This project is licensed under the terms of the MIT license.
 
 ## Credits and References
 
-Gatys, Leon A., Ecker, Alexander S. and Bethge, Matthias. "A Neural Algorithm of Artistic Style.." CoRR abs/1508.06576 (2015): [link to paper](https://arxiv.org/abs/1508.06576)
-Athalye A., athalye2015neuralstyle, "Neural Style" (2015): [Repository](https://github.com/anishathalye/neural-style)
+Gatys, Leon A., Ecker, Alexander S. and Bethge, Matthias. "A Neural Algorithm of Artistic Style.." CoRR abs/1508.06576 (2015): [link to paper](https://arxiv.org/abs/1508.06576)  
+Image Segmentation with DeepLabV3Plus: [link to repo](https://github.com/nikhilroxtomar/Human-Image-Segmentation-with-DeepLabV3Plus-in-TensorFlow)  
 
-[DeepLearning.ai](https://www.deeplearning.ai/) Deep Learning Specialization lecture notes
+[DeepLearning.ai](https://www.deeplearning.ai/) Deep Learning Specialization lecture notes  
+
+Ronneberger, Olaf, Philipp Fischer, and Thomas Brox. "U-net: Convolutional networks for biomedical image segmentation." International Conference on Medical image computing and computer-assisted intervention. Springer, Cham, 2015.: [link to paper](https://arxiv.org/abs/1505.04597)

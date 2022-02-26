@@ -130,7 +130,7 @@ def main(content, style, save, similarity="balanced", epochs=500):
 
         # Create crop out of personage in the content image
         # Image segmentation is done using U-Net architecture (size of (320, 320))
-        masked_photo = predict(content)
+        masked_photo = predict(content, save=False)
         # resize to current stylized image
         masked_photo = tf.image.resize(
             masked_photo, [image_size, image_size], method="nearest"

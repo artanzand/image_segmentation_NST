@@ -10,10 +10,10 @@ Options:
 """
 import os
 import tensorflow as tf
-# from docopt import docopt
+from docopt import docopt
 
 
-# opt = docopt(__doc__)
+opt = docopt(__doc__)
 
 # Global parameter
 IMAGE_SIZE = (320, 320)
@@ -89,7 +89,12 @@ def predict(image_path, save=True):
         print("Input image should be of JPG format")
 
     # load model
-    new_model = tf.keras.models.load_model("../model/Unet_model.h5")
+    try:
+        new_model = tf.keras.models.load_model("../model/Unet_model.h5")
+    except:
+        print(
+            "Are you sure you have trained the model?\n Make sure you run this function from /src directory."
+        )
 
     # preprocess data
     image_ds = process_path(image_path)
@@ -114,5 +119,5 @@ def predict(image_path, save=True):
     return masked_photo
 
 
-# if __name__ == "__main__":
-#     predict(opt["--file_path"])
+if __name__ == "__main__":
+    predict(opt["--file_path"])
