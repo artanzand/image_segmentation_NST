@@ -6,7 +6,7 @@ Reads two source images, one as the initial content image and second as the targ
 and applies Neural Style Transfer on the content image to create a stylized rendering of the content
 image based on the texture and style of the style image.
 
-Usage: python stylize.py --content <content image> --style <style image> --save <save directory> --similarity <direction> --epochs <num_iter>
+Usage: python stylize.py --content <content_image> --style <style_image> --save <save_directory> --similarity <direction> --epochs <num_iter>
 
 Options:
 --content=<image_path>               file path of the content image - initial  
